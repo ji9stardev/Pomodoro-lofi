@@ -399,7 +399,19 @@ async function init() {
   document.getElementById('settings-overlay').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeSettings(); });
   document.getElementById('themes-overlay').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeThemes(); });
   if (Notification.permission === 'default') setTimeout(() => Notification.requestPermission(), 2000);
-  console.log('🍅 Lo-Fi Pomodoro v3.0');
+  await loadVersion();
+  console.log('🍅 Lo-Fi Pomodoro v3.1');
+}
+
+// Cargar versión desde el backend
+async function loadVersion() {
+  try {
+    const res = await fetch(`${API}/version`);
+    if (!res.ok) return;
+    const data = await res.json();
+    const el = document.getElementById('app-version');
+    if (el) el.textContent = 'v' + data.version;
+  } catch(e) {}
 }
 
 document.addEventListener('DOMContentLoaded', init);
