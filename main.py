@@ -72,7 +72,9 @@ if frontend_path.exists():
 
     @app.get("/", include_in_schema=False)
     async def serve_frontend():
-        """Sirve el index.html del frontend."""
+        """Sirve el index.html del frontend o la página de mantenimiento."""
+        if os.getenv("MAINTENANCE_MODE", "false").lower() == "true":
+            return FileResponse(str(frontend_path / "maintenance.html"))
         return FileResponse(str(frontend_path / "index.html"))
 
 
