@@ -39,7 +39,12 @@ const state = {
 // ─── TEMPORIZADOR ─────────────────────────────────────────
 
 function toggleTimer() {
-  state.isRunning ? pauseTimer() : startTimer();
+  const btn = document.getElementById('start-btn');
+  if (btn.textContent === 'Pausar') {
+    pauseTimer();
+  } else {
+    startTimer();
+  }
 }
 
 function startTimer() {
